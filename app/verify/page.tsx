@@ -1,10 +1,10 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense } from "react"
 import { useSearchParams, useRouter } from "next/navigation"
 import { applyActionCode, getAuth } from "firebase/auth"
 
-export default function VerifyPage() {
+function VerifyPage() {
   const [verificationStatus, setVerificationStatus] = useState<string | null>(
     null
   )
@@ -43,5 +43,14 @@ export default function VerifyPage() {
       )}
       {!verificationStatus && <p>Verifying your email...</p>}
     </div>
+  )
+}
+
+// Wrap the component in Suspense
+export default function SuspenseWrapper() {
+  return (
+    <Suspense fallback={<p>Loading...</p>}>
+      <VerifyPage />
+    </Suspense>
   )
 }
