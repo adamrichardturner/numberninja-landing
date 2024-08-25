@@ -1,56 +1,50 @@
 "use client"
 
 import { useEffect, useState, Suspense } from "react"
-import { useSearchParams, useRouter } from "next/navigation"
-import { applyActionCode, getAuth } from "firebase/auth"
+import { useSearchParams } from "next/navigation"
+import { getAuth, applyActionCode } from "firebase/auth"
 
-function VerifyPage() {
-  const [verificationStatus, setVerificationStatus] = useState<string | null>(
-    null
-  )
+function VerifyEmail() {
+  const [status, setStatus] = useState("Verifying...")
   const searchParams = useSearchParams()
-  const router = useRouter()
   const oobCode = searchParams.get("oobCode")
-  const continueUrl = searchParams.get("continueUrl")
+  const redirectUrl = searchParams.get("redirect")
 
   useEffect(() => {
     const verifyEmail = async () => {
-      if (oobCode) {
-        try {
-          const auth = getAuth()
-          await applyActionCode(auth, oobCode)
-          setVerificationStatus("success")
-          if (continueUrl) {
-            router.push(continueUrl)
-          }
-        } catch (error) {
-          setVerificationStatus("error")
-          console.error("Error verifying email:", error)
+      if (!oobCode || !redirectUrl) return
+
+      const auth = getAuth()
+
+      try {
+        // Ensure we only run this logic once
+        if (auth.currentUser && auth.currentUser.emailVerified) {
+          window.location.href = redirectUrl as string
+          return
         }
+
+        await applyActionCode(auth, oobCode as string)
+        setStatus("Email verified! Redirecting...")
+
+        // Redirect to the app using the deep link
+        window.location.href = redirectUrl as string
+      } catch (error) {
+        console.error("Error verifying email:", error)
+        setStatus("Error verifying email. Please try again.")
       }
     }
 
     verifyEmail()
-  }, [oobCode, continueUrl, router])
+  }, [oobCode, redirectUrl])
 
-  return (
-    <div style={{ textAlign: "center", padding: "50px" }}>
-      {verificationStatus === "success" && (
-        <p>Your email has been verified! Redirecting...</p>
-      )}
-      {verificationStatus === "error" && (
-        <p>There was an issue verifying your email. Please try again.</p>
-      )}
-      {!verificationStatus && <p>Verifying your email...</p>}
-    </div>
-  )
+  return <div>{status}</div>
 }
 
-// Wrap the component in Suspense
-export default function SuspenseWrapper() {
+// The Suspense boundary should wrap the main component in the page function.
+export default function Page() {
   return (
-    <Suspense fallback={<p>Loading...</p>}>
-      <VerifyPage />
+    <Suspense fallback={<div>Loading...</div>}>
+      <VerifyEmail />
     </Suspense>
   )
 }
