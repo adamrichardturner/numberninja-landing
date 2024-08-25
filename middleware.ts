@@ -8,6 +8,7 @@ export function middleware(request: NextRequest) {
   if (url.pathname === "/verify" && !oobCode) {
     return NextResponse.redirect(new URL("/", request.url))
   }
+
   return NextResponse.next()
 }
 
