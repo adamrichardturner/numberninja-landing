@@ -1,13 +1,13 @@
 "use client"
 
 import { useEffect, useState, Suspense } from "react"
-import { useSearchParams } from "next/navigation"
+import { useSearchParams, useRouter } from "next/navigation"
 import { getAuth, applyActionCode } from "firebase/auth"
 
 function VerifyEmailContent() {
   const [status, setStatus] = useState("Verifying...")
-  const [verified, setVerified] = useState(false)
   const searchParams = useSearchParams()
+  const router = useRouter()
   const oobCode = searchParams.get("oobCode")
   const redirectUrl = searchParams.get("redirect")
 
@@ -24,15 +24,21 @@ function VerifyEmailContent() {
         // Avoid unnecessary re-verification
         const user = auth.currentUser
         if (user && user.emailVerified) {
-          setStatus("Email already verified!")
-          setVerified(true)
+          setStatus("Email already verified! Redirecting...")
+          setTimeout(() => {
+            router.push(redirectUrl as string)
+          }, 1000)
           return
         }
 
         // Apply the action code for email verification
         await applyActionCode(auth, oobCode as string)
-        setStatus("Email verified successfully!")
-        setVerified(true)
+        setStatus("Email verified successfully! Redirecting...")
+
+        // Delay to ensure Firebase updates state before redirecting
+        setTimeout(() => {
+          router.push(redirectUrl as string)
+        }, 1000)
       } catch (error) {
         console.error("Error verifying email:", error)
         setStatus("Error verifying email. Please try again.")
@@ -40,27 +46,11 @@ function VerifyEmailContent() {
     }
 
     verifyEmail()
-  }, [oobCode, redirectUrl])
+  }, [oobCode, redirectUrl, router])
 
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
       <h1>{status}</h1>
-      {verified && (
-        <button
-          style={{
-            marginTop: "20px",
-            padding: "10px 20px",
-            backgroundColor: "#4CAF50",
-            color: "#fff",
-            border: "none",
-            borderRadius: "5px",
-            cursor: "pointer",
-          }}
-          onClick={() => (window.location.href = redirectUrl as string)}
-        >
-          Open Number Ninja
-        </button>
-      )}
     </div>
   )
 }
