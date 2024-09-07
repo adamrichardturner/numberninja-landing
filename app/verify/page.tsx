@@ -31,9 +31,9 @@ function VerifyEmailContent() {
           setStatus("Signed in successfully. Redirecting to NumberNinja...")
         }
 
-        // Redirect to the app
+        // Redirect to the app with the oobCode
         if (continueUrl) {
-          window.location.href = continueUrl
+          window.location.href = `${continueUrl}${oobCode}`
         } else {
           setStatus("Email verified, but no redirect URL provided.")
         }
