@@ -9,18 +9,18 @@ function VerifyEmailContent() {
   const [status, setStatus] = useState("Verifying...")
   const searchParams = useSearchParams()
   const oobCode = searchParams.get("oobCode")
-  const redirectUrl = searchParams.get("redirect")
+  const continueUrl = searchParams.get("continueUrl")
 
   useEffect(() => {
     const verifyEmail = async () => {
-      if (!oobCode || !redirectUrl) {
-        setStatus("Invalid verification link. Missing parameters.")
+      if (!oobCode) {
+        setStatus("Invalid verification link. Missing oobCode.")
         return
       }
 
       try {
         await applyActionCode(auth, oobCode)
-        setStatus("Email verified successfully! Opening NumberNinja...")
+        setStatus("Email verified successfully!")
 
         // Get the email from local storage
         const email = localStorage.getItem("emailForSignIn")
@@ -28,10 +28,15 @@ function VerifyEmailContent() {
           // Sign in the user
           await signInWithEmailLink(auth, email, window.location.href)
           localStorage.removeItem("emailForSignIn")
+          setStatus("Signed in successfully. Redirecting to NumberNinja...")
         }
 
         // Redirect to the app
-        window.location.href = redirectUrl
+        if (continueUrl) {
+          window.location.href = continueUrl
+        } else {
+          setStatus("Email verified, but no redirect URL provided.")
+        }
       } catch (error) {
         console.error("Error verifying email:", error)
         setStatus("Error verifying email. Please try again.")
@@ -39,7 +44,7 @@ function VerifyEmailContent() {
     }
 
     verifyEmail()
-  }, [oobCode, redirectUrl])
+  }, [oobCode, continueUrl])
 
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>

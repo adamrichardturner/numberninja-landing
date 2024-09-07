@@ -3,9 +3,9 @@ import type { NextRequest } from "next/server"
 
 export function middleware(request: NextRequest) {
   const url = request.nextUrl
-  const redirect = url.searchParams.get("redirect")
+  const continueUrl = url.searchParams.get("continueUrl")
 
-  if (url.pathname === "/verify" && !redirect) {
+  if (url.pathname === "/verify" && !continueUrl) {
     // Redirect to the homepage if either redirect is missing
     return NextResponse.redirect(new URL("/", request.url))
   }
