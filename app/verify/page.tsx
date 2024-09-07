@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, Suspense } from "react"
 import { useSearchParams } from "next/navigation"
 import { auth } from "../../firebaseConfig"
 import { applyActionCode, signInWithEmailLink } from "firebase/auth"
@@ -49,5 +49,9 @@ function VerifyEmailContent() {
 }
 
 export default function VerifyEmail() {
-  return <VerifyEmailContent />
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <VerifyEmailContent />
+    </Suspense>
+  )
 }
