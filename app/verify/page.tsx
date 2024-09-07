@@ -1,31 +1,45 @@
 "use client"
 
-import { useEffect, useState, Suspense } from "react"
-import { useSearchParams, useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { useSearchParams } from "next/navigation"
+import { auth } from "../../firebaseConfig"
+import { applyActionCode, signInWithEmailLink } from "firebase/auth"
 
 function VerifyEmailContent() {
   const [status, setStatus] = useState("Verifying...")
   const searchParams = useSearchParams()
-  const router = useRouter()
+  const oobCode = searchParams.get("oobCode")
   const redirectUrl = searchParams.get("redirect")
 
   useEffect(() => {
     const verifyEmail = async () => {
-      if (!redirectUrl) {
+      if (!oobCode || !redirectUrl) {
         setStatus("Invalid verification link. Missing parameters.")
         return
       }
 
-      setStatus("Email verified successfully! Opening NumberNinja...")
+      try {
+        await applyActionCode(auth, oobCode)
+        setStatus("Email verified successfully! Opening NumberNinja...")
 
-      // Delay to ensure the user sees the status message before redirecting
-      setTimeout(() => {
-        router.push(redirectUrl as string)
-      }, 1000)
+        // Get the email from local storage
+        const email = localStorage.getItem("emailForSignIn")
+        if (email) {
+          // Sign in the user
+          await signInWithEmailLink(auth, email, window.location.href)
+          localStorage.removeItem("emailForSignIn")
+        }
+
+        // Redirect to the app
+        window.location.href = redirectUrl
+      } catch (error) {
+        console.error("Error verifying email:", error)
+        setStatus("Error verifying email. Please try again.")
+      }
     }
 
     verifyEmail()
-  }, [redirectUrl, router])
+  }, [oobCode, redirectUrl])
 
   return (
     <div style={{ textAlign: "center", marginTop: "50px" }}>
@@ -35,9 +49,5 @@ function VerifyEmailContent() {
 }
 
 export default function VerifyEmail() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <VerifyEmailContent />
-    </Suspense>
-  )
+  return <VerifyEmailContent />
 }
