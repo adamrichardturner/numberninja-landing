@@ -149,21 +149,6 @@ const PrivacyPolicy = () => (
     <p>Mr. Adam Richard Turner</p>
     <p>11 Templar Place, Hampton, Middlesex, TW12 2NE, United Kingdom</p>
     <p>Email: hello@adamrichardturner.dev</p>
-
-    <h2 className='text-xl mt-4 mb-2'>10. Data Controller Details</h2>
-    <p>Data Controller: Mr. Adam Richard Turner</p>
-    <p>
-      Address: 11 Templar Place, Hampton, Middlesex, TW12 2NE, United Kingdom
-    </p>
-    <p>Email: hello@adamrichardturner.dev</p>
-    <p>Data Controller Number: [Insert your ICO registration number here]</p>
-
-    <p>
-      Please note that these documents are templates and may need to be adapted
-      to your specific circumstances. It is always advisable to seek legal
-      advice to ensure your terms and conditions and privacy policy are
-      compliant with all applicable laws and regulations.
-    </p>
   </div>
 )
 
