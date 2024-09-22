@@ -43,9 +43,6 @@ function SupportForm() {
           Submit
         </button>
       </form>
-      <div className='flex flex-col gap-2 w-full text-center text-sm mt-6 underline'>
-        <Link href='/'>Back to Home</Link>
-      </div>
     </div>
   )
 }
