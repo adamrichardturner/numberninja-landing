@@ -20,12 +20,12 @@ const Terms: NextPage = () => {
           to and use of the Number Ninja Math Game app (&quot;App&quot;),
           available on the Google Playstore and Apple App Store, and its
           associated website,{" "}
-          <a href='https://numberninja.app' className='text-blue-500'>
+          <a href='https://numberninja.app' className='text-[#7148FC]'>
             https://numberninja.app
           </a>
-          &quot; (&quot;Website&quot;). By using the App or Website, you agree
-          to be bound by these T&Cs. If you do not agree to these T&Cs, you may
-          not use the App or Website.
+          &quot;(&quot;Website&quot;). By using the App or Website, you agree to
+          be bound by these T&Cs. If you do not agree to these T&Cs, you may not
+          use the App or Website.
         </p>
         <p>
           <strong>Key Terms</strong>
