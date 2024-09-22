@@ -134,7 +134,7 @@ const Terms: NextPage = () => {
           You may contact Mr. Adam Richard Turner at{" "}
           <a
             href='mailto:hello@adamrichardturner.dev'
-            className='text-blue-500'
+            className='text-[#7148FC]'
           >
             hello@adamrichardturner.dev
           </a>{" "}
