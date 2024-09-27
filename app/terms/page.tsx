@@ -20,7 +20,10 @@ const Terms: NextPage = () => {
           to and use of the Number Ninja Math Game app (&quot;App&quot;),
           available on the Google Playstore and Apple App Store, and its
           associated website,{" "}
-          <a href='https://numberninja.app' className='text-[#7148FC]'>
+          <a
+            href='https://numberninja.app'
+            className='text-[#7148FC] text-md py-2'
+          >
             https://numberninja.app
           </a>
           &quot;(&quot;Website&quot;). By using the App or Website, you agree to
@@ -134,7 +137,7 @@ const Terms: NextPage = () => {
           You may contact Mr. Adam Richard Turner at{" "}
           <a
             href='mailto:hello@adamrichardturner.dev'
-            className='text-[#7148FC]'
+            className='text-[#7148FC] text-md py-2'
           >
             hello@adamrichardturner.dev
           </a>{" "}
