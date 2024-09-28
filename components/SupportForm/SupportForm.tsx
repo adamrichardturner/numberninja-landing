@@ -2,7 +2,7 @@
 
 import React from "react"
 import { useForm, ValidationError } from "@formspree/react"
-import Link from "next/link"
+
 function SupportForm() {
   const [state, handleSubmit] = useForm("mvgpjbpy")
   return (
@@ -16,7 +16,7 @@ function SupportForm() {
             id='email'
             type='email'
             name='email'
-            className='border border-gray-300 rounded-md p-2'
+            className='border border-gray-600 rounded-md p-2 placeholder:text-gray-300'
           />
           <ValidationError prefix='Email' field='email' errors={state.errors} />
         </div>
@@ -27,7 +27,7 @@ function SupportForm() {
           <textarea
             id='message'
             name='message'
-            className='border border-gray-300 rounded-md p-2'
+            className='border border-gray-600 rounded-md p-2 placeholder:text-gray-300'
           />
           <ValidationError
             prefix='Message'
