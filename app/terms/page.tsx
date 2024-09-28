@@ -22,7 +22,9 @@ const Terms: NextPage = () => {
           associated website,{" "}
           <a
             href='https://numberninja.app'
-            className='text-[#7148FC] text-md py-2'
+            className='text-[#7148FC] text-lg py-2'
+            target='_blank'
+            rel='noopener noreferrer'
           >
             https://numberninja.app
           </a>
@@ -137,7 +139,9 @@ const Terms: NextPage = () => {
           You may contact Mr. Adam Richard Turner at{" "}
           <a
             href='mailto:hello@adamrichardturner.dev'
-            className='text-[#7148FC] text-md py-2'
+            className='text-[#7148FC] text-lg py-2'
+            target='_blank'
+            rel='noopener noreferrer'
           >
             hello@adamrichardturner.dev
           </a>{" "}

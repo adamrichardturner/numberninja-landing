@@ -9,7 +9,12 @@ const PrivacyPolicy = () => (
       &quot;us,&quot; or &quot;our&quot;) collects, uses, and protects your
       personal information when you use the Number Ninja Math Game app primary:,
       (&quot;App&quot;) and its associated website,{" "}
-      <a href='https://numberninja.app' className='text-[#7148FC] text-md py-2'>
+      <a
+        href='https://numberninja.app'
+        className='text-[#7148FC] text-lg py-2'
+        target='_blank'
+        rel='noopener noreferrer'
+      >
         https://numberninja.app
       </a>
       (&quot;Website&quot;).
@@ -141,7 +146,9 @@ const PrivacyPolicy = () => (
     </p>
     <a
       href='mailto:hello@adamrichardturner.dev'
-      className='text-[#7148FC] text-md py-2'
+      className='text-[#7148FC] text-lg py-2'
+      target='_blank'
+      rel='noopener noreferrer'
     >
       hello@adamrichardturner.dev
     </a>{" "}

@@ -38,7 +38,7 @@ function SupportForm() {
         <button
           type='submit'
           disabled={state.submitting}
-          className='bg-black text-white rounded-md p-2 mt-6'
+          className='bg-black text-white rounded-md p-4 mt-6'
         >
           Submit
         </button>
