@@ -147,8 +147,6 @@ const PrivacyPolicy = () => (
     <a
       href='mailto:hello@adamrichardturner.dev'
       className='text-[#7148FC] text-lg py-2'
-      target='_blank'
-      rel='noopener noreferrer'
     >
       hello@adamrichardturner.dev
     </a>{" "}
